@@ -1,0 +1,13 @@
+variables:
+  USER: "$JENKINS_USER"
+  PASS: "$JENKINS_PASS"
+
+jenkins:
+  stage: deploy
+  environment: production
+  script:
+    - curl -X POST -i -u $USER:$PASS https://jenkins.waf.com.ua/job/dev-shop-back/buildWithParameters?BRANCH_NAME=$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v(?:\d+.){2}(?:\d+)-dev$/
+      when: always
+    - when: never

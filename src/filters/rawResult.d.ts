@@ -1,0 +1,31 @@
+export interface rawResult {
+  pr_id: number;
+  pr_createdat: Date;
+  pr_updatedat: Date;
+  pr_availability: boolean;
+  pr_name: string;
+  pr_price: 1999;
+  pr_avgrating: string;
+  pr_categoryid: number;
+  pr_key: string;
+  pr_url: string;
+  pr_description: string;
+  pr_mainimgid: number;
+  pr_mainimgname: string;
+  pr_subcategoryid: number;
+  pr_subcategorykey: string;
+  cv_id: number;
+  cv_name: string;
+  cv_characteristicid: number;
+  cv_type: string;
+  cv_stringvalue: string | null;
+  cv_numbervalue: number | null;
+  cv_enumvalue: string | null;
+  cv_booleanvalue: boolean | null;
+  cv_jsonvalue: JSON | null;
+  cv_datevalue: Date | null;
+  comm_id: number;
+  comm_text: string;
+  comm_authorid: number;
+  comm_productid: number;
+}

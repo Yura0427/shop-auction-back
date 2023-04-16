@@ -1,0 +1,128 @@
+doctype html
+html
+    head
+        style.
+            .successOrderContainer {
+                width: 100%;
+                height: 100%;
+                background-color: whitesmoke;
+                color: black;
+
+            }
+
+            .successOrderText {
+                text-align: center;
+                font-size: 24px;
+                color: black;
+                margin: auto;
+                padding-top: 5%;
+                justify-content: center;
+            }
+
+            a {
+                color: black;
+                font-size: 24px;
+            }
+
+            .header {
+                height: 40px;
+                width: 100%;
+                background-color: #26bd62;
+            }
+
+            .order {
+                color: black;
+                border-top: 1px solid lightgray;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: azure;
+            }
+
+            .order div {
+                padding-right: 40px;
+            }
+
+            .orderName {
+                min-width: 150px;
+                max-width: 150px;
+            }
+
+            .orderNumber {
+                margin-top: 50px;
+            }
+
+            .deliveryInfo {
+                margin-bottom: 20px;
+            }
+
+            .deliveryInfo a {
+                font-size: 20px;
+            }
+
+            .orderNumber, .orderDate, .deliveryInfo {
+                margin-left: 50px;
+                font-size: 18px;
+                color: black;
+            }
+
+            .sumOrderContainer {
+                border-top: 1px solid lightgray;
+            }
+
+            .sumOrder {
+                margin-left: 40px;
+            }
+
+            .footer {
+                margin-top: 40px;
+                height: 40px;
+                background-color: #4e5a5e;;
+            }
+
+
+
+    body
+        div.successOrderContainer
+            div.header
+            div.successOrderText #{firstName}, дякуємо за замовлення в
+                | !{' '}
+                a(href=`${FRONT_FULL_LINK}`) магазині Buy All.
+                | !{' '} Ваше замовлення прийнято в роботу.
+            div.orderBody
+                div.orderNumber Замовлення №: #{order.id}
+                div.orderDate Дата замовлення:  #{orderDate}
+                div.deliveryInfo Адреса доставки: #{delivery.cityFullName} — #{delivery.streetName}
+                div.deliveryInfo Спосіб доставки: #{delivery.deliveryMethod}
+                if delivery.courierDeliveryAddress
+                    div.deliveryInfo Адреса кур&#39;єрської доставки: #{delivery.courierDeliveryAddress}
+                if order.liqpayOrderId
+                    span.deliveryInfo Спосіб оплати: LiqPay 
+                else
+                    div.deliveryInfo Спосіб оплати: Післяплата
+                div.deliveryInfo Перевірити
+                    | !{' '}
+                    a(href=`${FRONT_FULL_LINK}/order-without-auth/order?id=${order.id}`) статус замовлення
+                    | !{'.'}
+                each item in order.productToOrder
+                    div.order
+                        div
+                            img(src=`${imageRoot}/${item.product.mainImg.name}` style='height:50px; width:50px;')
+                        div.orderName
+                            h3 #{item.product.name}
+                        if item.color
+                            div
+                                h3 Колір: #{item.color}
+                        if item.size
+                            div
+                                h3 Розмір: #{item.size}
+                        div
+                            h3 х #{item.quantity}
+                        div
+                            h3 #{item.product.price} грн.                                                     
+            div.sumOrderContainer
+                h2.sumOrder Сума замовлення: #{order.amount} грн.
+            div.footer
